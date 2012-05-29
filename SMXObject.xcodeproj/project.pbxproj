@@ -13,6 +13,9 @@
 		F44545A6157518A300C3DB34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F44545A4157518A300C3DB34 /* InfoPlist.strings */; };
 		F44545A8157518A300C3DB34 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F44545A7157518A300C3DB34 /* main.m */; };
 		F44545AC157518A300C3DB34 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F44545AB157518A300C3DB34 /* AppDelegate.m */; };
+		F44545B4157518B200C3DB34 /* SMXObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F44545B3157518B200C3DB34 /* SMXObject.m */; };
+		F44545B7157519B700C3DB34 /* MyObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F44545B6157519B700C3DB34 /* MyObject.m */; };
+		F44545BD157522E900C3DB34 /* types.png in Resources */ = {isa = PBXBuildFile; fileRef = F44545BC157522E900C3DB34 /* types.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +23,17 @@
 		F445459B157518A300C3DB34 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F445459D157518A300C3DB34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F445459F157518A300C3DB34 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		F44545A3157518A300C3DB34 /* SMXObject-Info.plist */ = {isa = PBXFileReference; path = "SMXObject-Info.plist"; sourceTree = "<group>"; };
+		F44545A3157518A300C3DB34 /* SMXObject-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SMXObject-Info.plist"; sourceTree = "<group>"; };
 		F44545A5157518A300C3DB34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		F44545A7157518A300C3DB34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F44545A9157518A300C3DB34 /* SMXObject-Prefix.pch */ = {isa = PBXFileReference; path = "SMXObject-Prefix.pch"; sourceTree = "<group>"; };
-		F44545AA157518A300C3DB34 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		F44545A9157518A300C3DB34 /* SMXObject-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SMXObject-Prefix.pch"; sourceTree = "<group>"; };
+		F44545AA157518A300C3DB34 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F44545AB157518A300C3DB34 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F44545B2157518B200C3DB34 /* SMXObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMXObject.h; sourceTree = "<group>"; };
+		F44545B3157518B200C3DB34 /* SMXObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMXObject.m; sourceTree = "<group>"; };
+		F44545B5157519B700C3DB34 /* MyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyObject.h; sourceTree = "<group>"; };
+		F44545B6157519B700C3DB34 /* MyObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyObject.m; sourceTree = "<group>"; };
+		F44545BC157522E900C3DB34 /* types.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = types.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +82,10 @@
 			children = (
 				F44545AA157518A300C3DB34 /* AppDelegate.h */,
 				F44545AB157518A300C3DB34 /* AppDelegate.m */,
+				F44545B2157518B200C3DB34 /* SMXObject.h */,
+				F44545B3157518B200C3DB34 /* SMXObject.m */,
+				F44545B5157519B700C3DB34 /* MyObject.h */,
+				F44545B6157519B700C3DB34 /* MyObject.m */,
 				F44545A2157518A300C3DB34 /* Supporting Files */,
 			);
 			path = SMXObject;
@@ -82,6 +94,7 @@
 		F44545A2157518A300C3DB34 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F44545BC157522E900C3DB34 /* types.png */,
 				F44545A3157518A300C3DB34 /* SMXObject-Info.plist */,
 				F44545A4157518A300C3DB34 /* InfoPlist.strings */,
 				F44545A7157518A300C3DB34 /* main.m */,
@@ -141,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F44545A6157518A300C3DB34 /* InfoPlist.strings in Resources */,
+				F44545BD157522E900C3DB34 /* types.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +167,8 @@
 			files = (
 				F44545A8157518A300C3DB34 /* main.m in Sources */,
 				F44545AC157518A300C3DB34 /* AppDelegate.m in Sources */,
+				F44545B4157518B200C3DB34 /* SMXObject.m in Sources */,
+				F44545B7157519B700C3DB34 /* MyObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

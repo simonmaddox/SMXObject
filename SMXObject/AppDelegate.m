@@ -3,10 +3,11 @@
 //  SMXObject
 //
 //  Created by Simon Maddox on 29/05/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 The Lab, Telefonica UK Ltd. All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import "MyObject.h"
 
 @implementation AppDelegate
 
@@ -18,6 +19,29 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    MyObject *one = [[MyObject alloc] init];
+    one.message = @"Hello World!";
+    one.dictionary = [NSDictionary dictionaryWithObject:@"OBJECT" forKey:@"KEY"];
+    one.array = [NSArray arrayWithObject:@"ARRAY"];
+    one.number = [NSNumber numberWithInt:1000];
+    one.image = [UIImage imageNamed:@"types"];
+    
+    NSData *data = [one archivedObject];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"MyObject"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    MyObject *two = [MyObject objectFromArchive:[[NSUserDefaults standardUserDefaults] objectForKey:@"MyObject"]];
+    
+    NSLog(@"Retrieved Message: %@", two.message);
+    
+    UIImageView *image = [[UIImageView alloc] initWithFrame:self.window.frame];
+    image.contentMode = UIViewContentModeCenter;
+    image.image = two.image;
+    
+    [self.window addSubview:image];
+    
     return YES;
 }
 
