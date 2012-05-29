@@ -17,5 +17,5 @@
 
 @interface SMXObject (SMXObjectInformalProtocol)
 - (id) plistCompatibleObjectForKey:(NSString *)key;
-+ (id) objectForPlistCompatibleObject:(NSString *)key value:(id)value;
++ (id) objectForPlistCompatibleKey:(NSString *)key value:(id)value;
 @end

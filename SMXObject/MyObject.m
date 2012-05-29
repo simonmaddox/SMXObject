@@ -21,7 +21,7 @@
     return nil;
 }
 
-+ (id) objectForPlistCompatibleObject:(NSString *)key value:(id)value
++ (id) objectForPlistCompatibleKey:(NSString *)key value:(id)value
 {   
     if ([key isEqualToString:@"image"]){
         return [UIImage imageWithData:value];

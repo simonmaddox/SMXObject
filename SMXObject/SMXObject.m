@@ -79,7 +79,7 @@ static NSArray *_smxObjectAllowedTypes;
         }
         
         if (!value){
-            value = [self.class objectForPlistCompatibleObject:propertyName value:[aDecoder decodeObjectForKey:propertyName]];
+            value = [self.class objectForPlistCompatibleKey:propertyName value:[aDecoder decodeObjectForKey:propertyName]];
         }
         
         [object setValue:value forKey:propertyName];
