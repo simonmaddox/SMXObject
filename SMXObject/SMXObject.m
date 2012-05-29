@@ -50,7 +50,9 @@ static NSArray *_smxObjectAllowedTypes;
             value = [self plistCompatibleObjectForKey:propertyName];
         }
         
-        [aCoder encodeObject:value forKey:propertyName];
+        if (value){
+            [aCoder encodeObject:value forKey:propertyName];
+        }
     }
     
     free(properties);
@@ -82,7 +84,9 @@ static NSArray *_smxObjectAllowedTypes;
             value = [self.class objectForPlistCompatibleKey:propertyName value:[aDecoder decodeObjectForKey:propertyName]];
         }
         
-        [object setValue:value forKey:propertyName];
+        if (value){
+            [object setValue:value forKey:propertyName];
+        }
     }
     
     free(properties);
