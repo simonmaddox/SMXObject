@@ -46,7 +46,7 @@ static NSArray *_smxObjectAllowedTypes;
             }
         }
         
-        if (!value){
+        if (!value && [self respondsToSelector:@selector(plistCompatibleObjectForKey:)]){
             value = [self plistCompatibleObjectForKey:propertyName];
         }
         
@@ -80,7 +80,7 @@ static NSArray *_smxObjectAllowedTypes;
             }
         }
         
-        if (!value){
+        if (!value && [self.class respondsToSelector:@selector(objectForPlistCompatibleKey:value:)]){
             value = [self.class objectForPlistCompatibleKey:propertyName value:[aDecoder decodeObjectForKey:propertyName]];
         }
         
