@@ -11,9 +11,5 @@
 @interface MyObject : SMXObject
 
 @property (nonatomic, strong) NSString *message;
-@property (nonatomic, strong) NSDictionary *dictionary;
-@property (nonatomic, strong) NSArray *array;
-@property (nonatomic, strong) NSNumber *number;
-@property (nonatomic, strong) UIImage *image;
 
 @end

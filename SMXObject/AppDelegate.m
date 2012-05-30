@@ -22,26 +22,14 @@
     
     MyObject *one = [[MyObject alloc] init];
     one.message = @"Hello World!";
-    one.dictionary = [NSDictionary dictionaryWithObject:@"OBJECT" forKey:@"KEY"];
-    one.array = [NSArray arrayWithObject:@"ARRAY"];
-    one.number = [NSNumber numberWithInt:1000];
-    one.image = [UIImage imageNamed:@"types"];
-    
-    NSData *data = [one archivedObject];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"MyObject"];
+        
+    [[NSUserDefaults standardUserDefaults] setObject:[one archivedObject] forKey:@"MyObject"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     MyObject *two = [MyObject objectFromArchive:[[NSUserDefaults standardUserDefaults] objectForKey:@"MyObject"]];
     
     NSLog(@"Retrieved Message: %@", two.message);
-    
-    UIImageView *image = [[UIImageView alloc] initWithFrame:self.window.frame];
-    image.contentMode = UIViewContentModeCenter;
-    image.image = two.image;
-    
-    [self.window addSubview:image];
-    
+        
     return YES;
 }
 

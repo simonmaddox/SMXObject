@@ -10,6 +10,6 @@
 
 @implementation MyObject
 
-@synthesize message, dictionary, array, number, image;
+@synthesize message;
 
 @end
