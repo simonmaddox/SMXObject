@@ -5,6 +5,8 @@
 //  Created by Simon Maddox on 29/05/2012.
 //  Copyright (c) 2012 The Lab, Telefonica UK Ltd. All rights reserved.
 //
+//  @iamleeg wrote all of the objc runtime stuff. Thanks, Graham.
+//
 
 #import "SMXObject.h"
 #import <objc/runtime.h>
@@ -27,9 +29,7 @@
             value = [self valueForKey:propertyName];
         }
 
-        if (value){
-            [aCoder encodeObject:value forKey:propertyName];
-        }
+        [aCoder encodeObject:value forKey:propertyName];
     }
     
     free(properties);
@@ -49,9 +49,7 @@
         
         id value = [aDecoder decodeObjectForKey:propertyName];
         
-        if (value){
-            [object setValue:value forKey:propertyName];
-        }
+        [object setValue:value forKey:propertyName];
     }
     
     free(properties);
