@@ -15,4 +15,4 @@ good to go.
 SMXObject is a subclass of NSObject, so all of your existing code will still 
 work as-is.
 
-For a usage example, see the [example AppDelegate.m](https://github.com/dogfood20/SMXObject/blob/master/SMXObject/AppDelegate.m)
+For a usage example, see the [example AppDelegate.m](https://github.com/o2labs/SMXObject/blob/master/SMXObject/AppDelegate.m)
