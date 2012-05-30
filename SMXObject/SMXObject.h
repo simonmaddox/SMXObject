@@ -14,3 +14,10 @@
 - (NSData *) archivedObject;
 
 @end
+
+@interface SMXObject (SMXObjectInformalProtocol)
+
+- (id) encodeValue:(id)value forProperty:(NSString *)property;
+- (id) decodeValue:(id)value forProperty:(NSString *)property;
+
+@end

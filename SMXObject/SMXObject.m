@@ -23,10 +23,14 @@
         objc_property_t property = properties[i];
         NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
         
-        id value = nil;
+        id value = [self valueForKey:propertyName];
         
-        if ([[self valueForKey:propertyName] conformsToProtocol:NSProtocolFromString(@"NSCoding")]){
+        if ([value conformsToProtocol:NSProtocolFromString(@"NSCoding")]){
             value = [self valueForKey:propertyName];
+        } else {
+            if ([self respondsToSelector:@selector(encodeValue:forProperty:)]){
+                value = [self encodeValue:value forProperty:propertyName];
+            }
         }
 
         [aCoder encodeObject:value forKey:propertyName];
@@ -48,6 +52,10 @@
         NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
         
         id value = [aDecoder decodeObjectForKey:propertyName];
+        
+        if ([object respondsToSelector:@selector(decodeValue:forProperty:)]){
+            value = [self decodeValue:value forProperty:propertyName];
+        }
         
         [object setValue:value forKey:propertyName];
     }
