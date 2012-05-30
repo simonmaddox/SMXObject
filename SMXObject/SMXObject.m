@@ -9,22 +9,7 @@
 #import "SMXObject.h"
 #import <objc/runtime.h>
 
-static NSArray *_smxObjectAllowedTypes;
-
 @implementation SMXObject
-
-+ (void) initialize
-{
-    _smxObjectAllowedTypes = [NSArray arrayWithObjects:@"NSString", 
-                              @"NSDictionary",
-                              @"NSArray",
-                              @"NSData",
-                              @"NSDate",
-                              @"NSNumber",
-                              nil];
-    
-    [super initialize];
-}
 
 - (void) encodeWithCoder:(NSCoder *)aCoder
 {
@@ -35,21 +20,13 @@ static NSArray *_smxObjectAllowedTypes;
     for (unsigned int i = 0; i < countOfProperties; i++) {
         objc_property_t property = properties[i];
         NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
-                
-        NSString *attributes = [NSString stringWithUTF8String:property_getAttributes(property)];
         
         id value = nil;
-        for (NSString *type in _smxObjectAllowedTypes){
-            if ([attributes rangeOfString:type].length > 0){
-                value = [self valueForKey:propertyName];
-                break;
-            }
-        }
         
-        if (!value && [self respondsToSelector:@selector(plistCompatibleObjectForKey:)]){
-            value = [self plistCompatibleObjectForKey:propertyName];
+        if ([[self valueForKey:propertyName] conformsToProtocol:NSProtocolFromString(@"NSCoding")]){
+            value = [self valueForKey:propertyName];
         }
-        
+
         if (value){
             [aCoder encodeObject:value forKey:propertyName];
         }
@@ -70,19 +47,7 @@ static NSArray *_smxObjectAllowedTypes;
         objc_property_t property = properties[i];
         NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
         
-        NSString *attributes = [NSString stringWithUTF8String:property_getAttributes(property)];
-        id value = nil;
-        
-        for (NSString *type in _smxObjectAllowedTypes){
-            if ([attributes rangeOfString:type].length > 0){
-                value = [aDecoder decodeObjectForKey:propertyName];
-                break;
-            }
-        }
-        
-        if (!value && [self.class respondsToSelector:@selector(objectForPlistCompatibleKey:value:)]){
-            value = [self.class objectForPlistCompatibleKey:propertyName value:[aDecoder decodeObjectForKey:propertyName]];
-        }
+        id value = [aDecoder decodeObjectForKey:propertyName];
         
         if (value){
             [object setValue:value forKey:propertyName];

@@ -14,8 +14,3 @@
 - (NSData *) archivedObject;
 
 @end
-
-@interface SMXObject (SMXObjectInformalProtocol)
-- (id) plistCompatibleObjectForKey:(NSString *)key;
-+ (id) objectForPlistCompatibleKey:(NSString *)key value:(id)value;
-@end
