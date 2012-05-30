@@ -12,22 +12,4 @@
 
 @synthesize message, dictionary, array, number, image;
 
-- (id) plistCompatibleObjectForKey:(NSString *)key
-{
-    if ([key isEqualToString:@"image"]){
-        return UIImagePNGRepresentation(self.image);
-    }
-    
-    return nil;
-}
-
-+ (id) objectForPlistCompatibleKey:(NSString *)key value:(id)value
-{   
-    if ([key isEqualToString:@"image"]){
-        return [UIImage imageWithData:value];
-    }
-    
-    return nil;
-}
-
 @end
