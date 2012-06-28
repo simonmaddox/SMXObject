@@ -25,13 +25,11 @@
         
         id value = [self valueForKey:propertyName];
         
-        if ([value conformsToProtocol:NSProtocolFromString(@"NSCoding")]){
-            value = [self valueForKey:propertyName];
-        } else {
-            if ([self respondsToSelector:@selector(encodeValue:forProperty:)]){
-                value = [self encodeValue:value forProperty:propertyName];
-            }
-        }
+		if ([self respondsToSelector:@selector(encodeValue:forProperty:)]){
+			value = [self encodeValue:value forProperty:propertyName];
+		} else if ([value conformsToProtocol:@protocol(NSCoding)]){
+			value = [self valueForKey:propertyName];
+		}
 
         [aCoder encodeObject:value forKey:propertyName];
     }
