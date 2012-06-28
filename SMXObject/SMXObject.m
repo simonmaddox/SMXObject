@@ -30,8 +30,10 @@
 		} else if ([value conformsToProtocol:@protocol(NSCoding)]){
 			value = [self valueForKey:propertyName];
 		}
-
-        [aCoder encodeObject:value forKey:propertyName];
+		
+		if (value){
+			[aCoder encodeObject:value forKey:propertyName];
+		}
     }
     
     free(properties);
@@ -49,13 +51,15 @@
         objc_property_t property = properties[i];
         NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
         
-        id value = [aDecoder decodeObjectForKey:propertyName];
-        
-        if ([object respondsToSelector:@selector(decodeValue:forProperty:)]){
-            value = [self decodeValue:value forProperty:propertyName];
-        }
-        
-        [object setValue:value forKey:propertyName];
+		if ([aDecoder containsValueForKey:propertyName]){
+			id value = [aDecoder decodeObjectForKey:propertyName];
+			
+			if ([object respondsToSelector:@selector(decodeValue:forProperty:)]){
+				value = [self decodeValue:value forProperty:propertyName];
+			}
+			
+			[object setValue:value forKey:propertyName];
+		}
     }
     
     free(properties);
