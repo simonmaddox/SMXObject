@@ -13,6 +13,8 @@
 
 @implementation SMXObject
 
+#pragma mark - NSCoding
+
 - (void) encodeWithCoder:(NSCoder *)aCoder
 {
     unsigned int countOfProperties;
@@ -76,6 +78,27 @@
 - (NSData *) archivedObject
 {
     return [NSKeyedArchiver archivedDataWithRootObject:self];
+}
+
+#pragma mark - NSCopying
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    id copiedObject = [[self class] allocWithZone:zone];
+    
+    unsigned int countOfProperties;
+    objc_property_t *properties = class_copyPropertyList(self.class, &countOfProperties);
+    if (!properties) return copiedObject;
+    
+    for (unsigned int i = 0; i < countOfProperties; i++) {
+        objc_property_t property = properties[i];
+        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+        
+        id value = [self valueForKey:propertyName];
+        [copiedObject setValue:value forKey:propertyName];
+    }
+    
+    return copiedObject;
 }
 
 @end

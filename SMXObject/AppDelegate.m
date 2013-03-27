@@ -29,6 +29,13 @@
     MyObject *two = [MyObject objectFromArchive:[[NSUserDefaults standardUserDefaults] objectForKey:@"MyObject"]];
     
     NSLog(@"Retrieved Message: %@", two.message);
+    
+    MyObject *copied = [two copy];
+    
+    copied.message = @"This has changed!";
+    
+    NSLog(@"Original Object: %@", two.message);
+    NSLog(@"Copied Object: %@", copied.message);
         
     return YES;
 }
