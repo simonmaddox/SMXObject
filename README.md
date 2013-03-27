@@ -16,3 +16,6 @@ SMXObject is a subclass of NSObject, so all of your existing code will still
 work as-is.
 
 For a usage example, see the [example AppDelegate.m](https://github.com/o2labs/SMXObject/blob/master/SMXObject/AppDelegate.m)
+
+SMXObject also supports the NSCopying protocol automatically, so you get that
+for free too.
