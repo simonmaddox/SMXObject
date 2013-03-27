@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SMXObject : NSObject <NSCoding>
+@interface SMXObject : NSObject <NSCoding, NSCopying>
 
 + (id) objectFromArchive:(NSData *)archive;
 - (NSData *) archivedObject;
