@@ -98,6 +98,8 @@
         [copiedObject setValue:value forKey:propertyName];
     }
     
+    free(properties);
+    
     return copiedObject;
 }
 

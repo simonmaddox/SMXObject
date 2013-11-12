@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SMXObject"
-  s.version      = "1.1"
+  s.version      = "1.1.1"
   s.summary      = "NSObject subclass for doing interesting things."
   s.homepage     = "https://github.com/simonmaddox/SMXObject"
   s.license      = 'MIT'
