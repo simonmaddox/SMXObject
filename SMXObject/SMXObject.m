@@ -17,14 +17,7 @@
 
 - (void) encodeWithCoder:(NSCoder *)aCoder
 {
-    unsigned int countOfProperties;
-    objc_property_t *properties = class_copyPropertyList(self.class, &countOfProperties);
-    if (!properties) return;
-    
-    for (unsigned int i = 0; i < countOfProperties; i++) {
-        objc_property_t property = properties[i];
-        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
-        
+    [[self class] SMX_enumeratePropertiesOfObject:self block:^(NSString *propertyName) {
         id value = [self valueForKey:propertyName];
         
 		if ([self respondsToSelector:@selector(encodeValue:forProperty:)]){
@@ -36,36 +29,24 @@
 		if (value){
 			[aCoder encodeObject:value forKey:propertyName];
 		}
-    }
-    
-    free(properties);
+    }];
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     id object = [[[self class] alloc] init];
     
-    unsigned int countOfProperties;
-    objc_property_t *properties = class_copyPropertyList(self.class, &countOfProperties);
-    if (!properties) return object;
-    
-    for (unsigned int i = 0; i < countOfProperties; i++) {
-        objc_property_t property = properties[i];
-        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
-        
-		if ([aDecoder containsValueForKey:propertyName]){
+    [[object class] SMX_enumeratePropertiesOfObject:object block:^(NSString *propertyName) {
+        if ([aDecoder containsValueForKey:propertyName]){
 			id value = [aDecoder decodeObjectForKey:propertyName];
 			
 			if ([object respondsToSelector:@selector(decodeValue:forProperty:)]){
-				value = [self decodeValue:value forProperty:propertyName];
+				value = [object decodeValue:value forProperty:propertyName];
 			}
 			
 			[object setValue:value forKey:propertyName];
 		}
-    }
-    
-    free(properties);
-    
+    }];
     
     return object;
 }
@@ -86,21 +67,30 @@
 {
     id copiedObject = [[self class] allocWithZone:zone];
     
+    [[copiedObject class] SMX_enumeratePropertiesOfObject:copiedObject block:^(NSString *propertyName) {
+        id value = [self valueForKey:propertyName];
+        [copiedObject setValue:value forKey:propertyName];
+    }];
+    
+    return copiedObject;
+}
+
+#pragma mark -
+
++ (void) SMX_enumeratePropertiesOfObject:(id)object block:(void (^)(NSString *propertyName))block
+{
     unsigned int countOfProperties;
-    objc_property_t *properties = class_copyPropertyList(self.class, &countOfProperties);
-    if (!properties) return copiedObject;
+    objc_property_t *properties = class_copyPropertyList([object class], &countOfProperties);
+    if (!properties) return;
     
     for (unsigned int i = 0; i < countOfProperties; i++) {
         objc_property_t property = properties[i];
         NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
         
-        id value = [self valueForKey:propertyName];
-        [copiedObject setValue:value forKey:propertyName];
+        block(propertyName);
     }
     
     free(properties);
-    
-    return copiedObject;
 }
 
 @end
