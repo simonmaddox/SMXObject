@@ -44,7 +44,9 @@
 				value = [object decodeValue:value forProperty:propertyName];
 			}
 			
-			[object setValue:value forKey:propertyName];
+            if (value){
+                [object setValue:value forKey:propertyName];
+            }
 		}
     }];
     
@@ -69,7 +71,9 @@
     
     [[copiedObject class] SMX_enumeratePropertiesOfObject:copiedObject block:^(NSString *propertyName) {
         id value = [self valueForKey:propertyName];
-        [copiedObject setValue:value forKey:propertyName];
+        if (value){
+            [copiedObject setValue:value forKey:propertyName];
+        }
     }];
     
     return copiedObject;
