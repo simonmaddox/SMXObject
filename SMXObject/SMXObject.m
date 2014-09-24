@@ -90,8 +90,18 @@
     for (unsigned int i = 0; i < countOfProperties; i++) {
         objc_property_t property = properties[i];
         NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
-        
-        block(propertyName);
+		Class currentClass = [self class];
+		while (currentClass != [NSObject class]){
+			if ([currentClass instancesRespondToSelector:NSSelectorFromString(propertyName)]){
+				currentClass = [currentClass superclass];
+			} else {
+				break;
+			}
+		}
+		
+		if (currentClass != [NSObject class]){
+			block(propertyName);
+		}
     }
     
     free(properties);
