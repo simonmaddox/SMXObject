@@ -83,28 +83,26 @@
 
 + (void) SMX_enumeratePropertiesOfObject:(id)object block:(void (^)(NSString *propertyName))block
 {
-    unsigned int countOfProperties;
-    objc_property_t *properties = class_copyPropertyList([object class], &countOfProperties);
-    if (!properties) return;
-    
-    for (unsigned int i = 0; i < countOfProperties; i++) {
-        objc_property_t property = properties[i];
-        NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
-		Class currentClass = [self class];
-		while (currentClass != [NSObject class]){
-			if ([currentClass instancesRespondToSelector:NSSelectorFromString(propertyName)]){
-				currentClass = [currentClass superclass];
-			} else {
-				break;
+	Class currentClass = [self class];
+	while (currentClass != [NSObject class]){
+		
+		unsigned int countOfProperties;
+		objc_property_t *properties = class_copyPropertyList(currentClass, &countOfProperties);
+		if (!properties) return;
+		
+		for (unsigned int i = 0; i < countOfProperties; i++) {
+			objc_property_t property = properties[i];
+			NSString *propertyName = [NSString stringWithUTF8String:property_getName(property)];
+			
+			if (![NSObject instancesRespondToSelector:NSSelectorFromString(propertyName)]){
+				block(propertyName);
 			}
 		}
 		
-		if (currentClass != [NSObject class]){
-			block(propertyName);
-		}
-    }
-    
-    free(properties);
+		free(properties);
+		
+		currentClass = [currentClass superclass];
+	}
 }
 
 @end
